@@ -35,10 +35,35 @@ basicCN + geom_boxplot()
 basicCN + geom_boxplot(notch=TRUE,outlier.color = "red") + stat_boxplot(geom ='errorbar') + labs(title="Fancy notch boxplot \n with 2 lines")
 ```
 
+
+The box for the back rows are much larger than the front and middle seat. The red dots, the outliers, are shown above each box. The difference in the sixes will be ran with a series of t.test's, two at a time to show the significance. 
+
 ## Numerical Summarys 
+
+```{r}
+favstats(alcohol~Seat,data=davisdata)
+```
+
+The number of people who sat in the back row was 32. The front row contained 33 people, and the middle had the largest amount with 83. The quadrants displayed by Q, are ordered by the row and in quadrants one and 3. In the first quadrant, all three showed results, with the largest result of 0.75 in the back row. The front and middle had no variance. The third quadrant also repeated a similar result. The largest quadrant result of 14.25 was expressed in the back row. 
+
 
 ## Inferential Tests
 
+```{r}
+model1 <- aov(alcohol~Seat,data=davisdata)
+summary.aov(model1)
+```
+
+The inferential tests shows that the probability is too low, at 0.000116. We reject the null hypothesis as is. 
+
+```{r}
+#we specify the margins starting at the bottom and proceeding clockwise - thus 8.7 is the left side margin to hold the names of the factors
+par(mar = c(3, 8.7, 2, 2))
+plot(TukeyHSD(model1),las=2)
+```
+
+A multiple comparison test showcases a substantial difference or a lack of using each pair of data. The comparison of the middle row and the front had little to no difference to each other. This is shown by the 0 broken line, this bracket is placed where this broken line is and explains there is no difference in the date. The middle and back seats are on the right portion of the graph and show a negative result, based on the bottom line, placing it at approximately -11. The front and back portions were compared and showed the most significant charge in numerical data. The bracket is in the negative numbers, at around -13. This inference explains the most drinking was done by the back row. 
+
 ## Conclusions
 
-
+To discuss these results, we ran a series of tests and compared the results. Through a multiple comparison test, we were able to display the number differences and that a large portion of the data agreed that the black row had the most instances of drinking compared to the front and middle seats. The categorical data was organized in numerical summaries. 
